@@ -2,14 +2,14 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUsuario extends Document {
   nombre: string;
-  primerApellido: string;
-  segundoApellido: string;
   email: string;
   img: string;
   password: string;
   telefono: string;
   google: boolean;
   rol: string;
+  fechaCreacion: Date;
+  fechaActualizacion: Date;
   terminos: boolean;
   status: boolean;
 }
@@ -18,14 +18,6 @@ const UsuarioSchema: Schema = new Schema({
   nombre: {
     type: String,
     required: [true, "el nombre es obligatoria"],
-  },
-  primerApellido: {
-    type: String,
-    required: [true, "el primer apellido es obligatorio"],
-  },
-  segundoApellido: {
-    type: String,
-    required: [true, "el segundo apellido es obligatorio"],
   },
   email: {
     type: String,
@@ -39,8 +31,7 @@ const UsuarioSchema: Schema = new Schema({
     required: [true, "el password es obligatorio"],
   },
   telefono: {
-    type: String,
-    required: [true, "el telefono es obligatorio"],
+    type: String
   },
   google: {
     type: Boolean,
@@ -59,6 +50,14 @@ const UsuarioSchema: Schema = new Schema({
     type: Boolean,
     default: false,
   },
+  fechaCreacion: {
+    type: Date,
+    default: Date.now,
+  },
+  fechaActualizacion: {
+    type: Date,
+    default: Date.now,
+  },
   status: {
     type: Boolean,
     default: true,
@@ -67,8 +66,9 @@ const UsuarioSchema: Schema = new Schema({
 });
 // esta función permite filtrar el modelo usuario, quito de poder devolverlo entero y se guarda el modelo entero en DB
 UsuarioSchema.methods.toJSON = function () {
-  const { __v, status, ...usuario } = this.toObject(); //pongo lo que no quiero mostrar
+  const { __v, status, _id, ...usuario } = this.toObject(); //pongo lo que no quiero mostrar
+  usuario.uid = _id; //cambio el nombre de _id a uid
   return usuario; //filtrada
 };
 
-export default mongoose.model("Usuario", UsuarioSchema);
+export default mongoose.model<IUsuario & mongoose.Document>("Usuario", UsuarioSchema);

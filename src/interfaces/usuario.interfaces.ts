@@ -1,71 +1,37 @@
+
+//REQUESTS
+
 import { IUsuario } from "../models/usuario.model";
 
-// Datos que el usuario ingresa (nombre e email)
-export interface inputUsuario {
+export interface usuarioInput {
+  nombre:IUsuario['nombre'];
+  email:IUsuario['email'];
+  img:IUsuario['img'];
+  password:IUsuario['password'];
+  telefono:IUsuario['telefono'];
+  google:IUsuario['google'];
+  rol:IUsuario['rol'];
+  terminos:IUsuario['terminos'];
+  status:IUsuario['status'];
+}
+
+// Datos que el usuario ingresa cuando se crear un usuario en register
+export interface registerInput {
   email:IUsuario['email'];
   nombre:IUsuario['nombre'];
   password:IUsuario['password'];
   terminos:IUsuario['terminos'];
 }
 
+// Datos que el usuario ingresa cuando se loguea
+export interface loginInput {
+  email:IUsuario['email'];
+  password:IUsuario['password'];
+}
 
+//RESPONSES
 
-
-// // Datos que el usuario ingresa (nombre e email)
-// const usuarioFiltrado = {
-//     email: z.string(
-//         {
-//             required_error: 'Email es requerido',
-//             invalid_type_error: 'Email tiene que ser del tipo String'
-//         }
-//     ).email(),
-//     nombre: z.string()
-// };
-
-// //Usuario entero
-// const postUsuarioSchema = z.object({
-//     ...usuarioFiltrado,
-//     terminos: z.boolean(),
-//     password: z.string(
-//         {
-//             required_error: 'Email es requerido',
-//             invalid_type_error: 'Email tiene que ser del tipo String'
-//         }
-//     )
-// });
-
-// //Login Usuario
-// const loginSchema = z.object({
-//     email: z.string(
-//         {
-//             required_error: 'Email es requerido',
-//             invalid_type_error: 'Email tiene que ser del tipo String'
-//         }
-//     ).email(),
-//     password: z.string()
-// });
-
-// //Token
-// const loginResponseSchema = z.object({
-//     accessToken: z.string()
-// });
-
-// //Respuesta de post de usuario
-// const postUsuarioResponseSchema = z.object({
-//     id: z.number(),
-//  ...usuarioFiltrado
-// });
-
-// export type PostUsuarioInput = z.infer<typeof postUsuarioSchema>;
-
-// export type loginInput = z.infer<typeof loginSchema>;
-
-// export const {schemas: usuarioSchemas, $ref} = buildJsonSchemas({
-//     postUsuarioSchema,
-//     postUsuarioResponseSchema,
-//     loginSchema,
-//     loginResponseSchema
-// },
-// {
-//     $id: "usuarioSchemas",
-// })
+// Token que se devuelve cuando se loguea
+export interface loginResponse {
+  accessToken:string;
+}

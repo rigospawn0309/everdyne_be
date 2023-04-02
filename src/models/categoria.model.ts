@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { IUsuario } from "./usuario.model";
 
+
 export interface ICategoria extends Document {
   nombre: string;
   propietario: IUsuario['id'];
